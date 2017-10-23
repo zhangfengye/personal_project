@@ -1,0 +1,27 @@
+#整个数据分析的过程是按照数据仓库的层次分层进行的，
+#总体来说，是从ODS原始数据中整理出一些中间表（比如，
+#为后续分析方便，将原始数据中的时间、url等非结构化
+#数据作结构化抽取，将各种字段信息进行细化，形成明细表），
+#然后再在中间表的基础之上统计出各种指标数据
+#1.建表——明细表ods_weblog_detail  (源：ods_weblog_origin)   （目标：ods_weblog_detail）
+create table ods_weblog_detail(
+valid           string, --有效标识
+remote_addr     string, --来源IP
+remote_user     string, --用户标识
+time_local      string, --访问完整时间
+daystr          string, --访问日期
+timestr         string, --访问时间
+month           string, --访问月
+day             string, --访问日
+hour            string, --访问时
+request         string, --请求的url
+status          string, --响应码
+body_bytes_sent string, --传输字节数
+http_referer    string, --来源url
+ref_host        string, --来源的host
+ref_path        string, --来源的路径
+ref_query       string, --来源参数query
+ref_query_id    string, --来源参数query的值
+http_user_agent string --客户终端标识
+)
+partitioned by(datestr string);

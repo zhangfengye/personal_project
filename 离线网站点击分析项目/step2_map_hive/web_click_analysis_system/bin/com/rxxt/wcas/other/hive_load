@@ -1,0 +1,9 @@
+#1.导入数据到ods_weblog_origin表
+load data inpath '/flume/target_path2/' 
+overwrite into table ods_weblog_origin partition(part='2017-09-14');
+#2.导入点击流模型pageviews数据到ods_click_pageviews表
+load data inpath '/flume/target_path3/' 
+overwrite into table ods_click_pageviews partition(part='2017-09-14');
+#3.导入点击流模型visit数据到click_stream_visit表
+load data inpath '/flume/target_path4/' 
+overwrite into table click_stream_visit partition(part='2017-09-14');

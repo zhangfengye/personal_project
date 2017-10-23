@@ -1,0 +1,41 @@
+#1.创建database
+drop database wcas if exists wcas;
+create database wcas;
+use wcas;
+#2.在hive仓库中建贴源数据表 ods_weblog_origin
+drop table ods_weblog_origin if exists ods_weblog_origin;
+create table ods_weblog_origin(valid string,
+remote_addr string,remote_user string,
+time_local string,request string,
+status string,body_bytes_sent string,
+http_referer string,http_user_agent string) partitioned by(part string)
+row format delimited fields terminated by '\001' stored as textfile;
+#3.点击流模型pageviews表 ods_click_pageviews
+drop table ods_click_pageviews if exists ods_click_pageviews;
+create table ods_click_pageviews(session string,remote_addr string,remote_user string,
+timestr string,request string,step string,staylong string,referal string,
+useragent string,bytes_send string,status string) partitioned by(part string)
+row format delimited fields terminated by '\001' stored as textfile;
+#4.点击流visit模型表   click_stream_visit
+drop table click_stream_visit if exists click_stream_visit;
+create table click_stream_visit(
+session     string,
+remote_addr string,
+inTime      string,
+outTime     string,
+inPage      string,
+outPage     string,
+referal     string,
+pageVisits  int)
+partitioned by (part string);
+#5.时间维表创建
+drop table dim_time if exists dim_time;
+create table dim_time(
+year string,
+month string,
+day string,
+hour string)
+row format delimited
+fields terminated by ',';
+
+
