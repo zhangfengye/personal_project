@@ -1,0 +1,50 @@
+C标签的引入
+步骤：
+1、加载jar包：  jstl.jar  standard.jar
+2、在jsp页面中加入jstl引用路径。
+<%@taglib uri="xxxxxx"  %>
+3、使用 <c:xxxxxxxx
+
+课程展示list流程：
+	请求的路径：courseServlet?method=show ,
+	控制类接受到请求，然后转发到/admin/courselist.jsp
+	在list展示实现过程中，控制类获取业务类方法，响应到前端页面。（不需要获取前端请求数据）
+	req.setAttribet("标识",值);  在页面中使用c标签循环显示。
+
+修改课程流程：
+	点击修改链接（/项目名/courseServlet?method=showUpdate&id=123）(链路传值)，
+	后台就可以通过req.setParameter("id"); 得到要修改的课程id。
+	然后调用 课程业务类，获取课程信息，转发到‘/admin/courseupdate.jsp’
+	req.setAttribute("标识",值); 最后在页面 “回显” 课程信息（有一个主键是隐藏域）
+	    	<input type="hidden" name="id" value="${标识.id}"/>
+	
+	成功显示修改页面的时候，1、隐藏域主键是否有值。
+					  2、action路径（?method=update是隐藏域的形式传递的）
+	最后点击“提交”，成功访问courseServlet中的update方法；
+	调用业务层中的修改方法分支完成保存;
+	之后重定向  (response.sendReid("/项目名/courseServlet?method=show");)
+	
+Calendar.setup({
+inputField : "control_date",
+ifFormat : "%Y-%m-%d %H:%M:%S",
+showsTime : true,
+timeFormat : "24"
+});		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+	
+	
+	
+
